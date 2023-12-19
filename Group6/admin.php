@@ -71,23 +71,29 @@ function admindashboard($reservations, $csrfToken) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <link rel="icon" href="images/ctu.png" type="image/x-icon">
+    <link rel="stylesheet" href="admin.css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <script src="https://kit.fontawesome.com/cf223ee5eb.js" crossorigin="anonymous"></script>
 </head>
 
-<body class="bg-gray-100 font-sans">
+<body class="font-sans">
 
-    <div class="bg-blue-600 p-4 text-white text-center">
-        <h1 class="text-4xl sm:text-6xl md:text-6xl">Admin Dashboard</h1>
+    <div class="header p-5 text-white">
+        <h1 class="container">Admin Dashboard</h1>
     </div>
 
-    <div class="container mx-auto mt-8">
-        <h2 class="text-2xl sm:text-4xl mb-4">Reservations</h2>
-        <form method="post" action="" class="text-right mb-4">
+    <div class="container flex justify-between mx-auto mt-8">
+        <h2 class="text-2xl sm:text-3xl">Reservations</h2>
+        <form method="post" action="" class="text-right">
             <input type="hidden" name="csrf_token" value="<?= $csrfToken ?>">
-            <button type="submit" name="logout" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 sm:py-4 px-2 sm:px-4 rounded">Logout</button>
+            <button type="submit" name="logout"
+                class="bg-red-500 hover:bg-red-700 text-white font-bold  sm:py-4 sm:px-4 rounded"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
         </form>
     </div>
 
-    <div class="bg-white rounded shadow-md p-4 sm:p-8 overflow-x-auto container mx-auto mt-4">
+    <div class="wrapper bg-white rounded-lg shadow-xl p-4 sm:p-8 overflow-x-auto container mx-auto mt-4 text-center">
         <div class="w-full overflow-x-auto">
             <table class="w-full table-auto border border-gray-300 text-sm sm:text-lg">
                 <thead>
@@ -102,21 +108,32 @@ function admindashboard($reservations, $csrfToken) {
                 </thead>
                 <tbody>
                     <?php foreach ($reservations as $row) { ?>
-                        <tr>
-                            <td class="px-4 py-2 border hidden md:table-cell"><?= htmlspecialchars($row['date'], ENT_QUOTES, 'UTF-8') ?></td>
-                            <td class="px-4 py-2 border"><?= htmlspecialchars($row['user'], ENT_QUOTES, 'UTF-8') ?></td>
-                            <td class="px-4 py-2 border hidden md:table-cell"><?= htmlspecialchars($row['computer_count'], ENT_QUOTES, 'UTF-8') ?></td>
-                            <td class="px-4 py-2 border hidden md:table-cell"><?= htmlspecialchars($row['purpose'], ENT_QUOTES, 'UTF-8') ?></td>
-                            <td class="px-4 py-2 border <?= $row['status'] === 'approved' ? 'text-green-500' : ($row['status'] === 'pending' ? 'text-blue-500' : 'text-red-500') ?>">
-                                <?= htmlspecialchars($row['status'], ENT_QUOTES, 'UTF-8') ?>
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="<?= $row['status'] === 'Approved' ? 'bg-green-500' : ($row['status'] === 'Pending' ? 'bg-blue-500' : 'bg-red-500') ?> text-white py-4 px-4 sm:py-4 sm:px-4 rounded">
-                                    <a href="delete_reservation.php?id=<?= htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') ?>" class="text-white <?= $row['status'] === 'Approved' ? 'bg-red-500' : '' ?>">Delete</a>
-                                </div>
-                            </td>
-                        </tr>
-                    <?php } ?>
+                    <tr>
+                        <td class="px-4 py-2 border hidden md:table-cell">
+                            <?= htmlspecialchars($row['date'], ENT_QUOTES, 'UTF-8') ?>
+                        </td>
+                        <td class="px-4 py-2 border">
+                            <?= htmlspecialchars($row['user'], ENT_QUOTES, 'UTF-8') ?>
+                        </td>
+                        <td class="px-4 py-2 border hidden md:table-cell">
+                            <?= htmlspecialchars($row['computer_count'], ENT_QUOTES, 'UTF-8') ?>
+                        </td>
+                        <td class="px-4 py-2 border hidden md:table-cell">
+                            <?= htmlspecialchars($row['purpose'], ENT_QUOTES, 'UTF-8') ?>
+                        </td>
+                        <td
+                            class="px-4 py-2 border <?= $row['status'] === 'approved' ? 'text-green-500' : ($row['status'] === 'pending' ? 'text-blue-500' : 'text-red-500') ?>">
+                            <?= htmlspecialchars($row['status'], ENT_QUOTES, 'UTF-8') ?>
+                        </td>
+                        <td class="px-4 py-2 border">
+                            <div
+                                class="<?= $row['status'] === 'Approved' ? 'bg-green-500' : ($row['status'] === 'Pending' ? 'bg-blue-500' : 'bg-red-500') ?> text-white py-4 px-4 sm:py-4 sm:px-4 rounded">
+                                <a href="delete_reservation.php?id=<?= htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') ?>"
+                                    class="text-white <?= $row['status'] === 'Approved' ? 'bg-red-500' : '' ?>"> 
+                                    <i class="fa-regular fa-trash-can"></i> Delete</a>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
